@@ -9,32 +9,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HelloController {
     @GetMapping("hello")
-    public String hello(Model model){
+    public String hello(Model model) {
         model.addAttribute("data", "hello");
         return "hello";
     }
 
     @GetMapping("hello-mvc")
-    public String helloMvc(@RequestParam("name") String name, Model model){
+    public String helloMvc(@RequestParam("name") String name, Model model) {
         model.addAttribute("name", name);
         return "hello-template";
     }
 
     @GetMapping("hello-string")
     @ResponseBody
-    public String helloString(@RequestParam("name") String name){
+    public String helloString(@RequestParam("name") String name) {
         return "[HELLO]" + name;
     }
 
     @GetMapping("hello-api")
     @ResponseBody
-    public Hello helloApi(@RequestParam("name") String name){
+    public Hello helloApi(@RequestParam("name") String name) {
         Hello hello = new Hello();
         hello.setName(name);
         return hello;
     }
 
-    static class Hello{
+    static class Hello {
         private String name;
 
         public String getName() {
