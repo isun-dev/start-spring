@@ -4,6 +4,8 @@ import start.startspring.domain.Member;
 import start.startspring.repository.MemberRepository;
 import start.startspring.repository.MemoryMemberRepository;
 
+import java.util.Optional;
+
 public class MemberService {
     private final MemberRepository memberRepository = new MemoryMemberRepository();
 
@@ -11,6 +13,11 @@ public class MemberService {
      * 회원가입
      */
     public Long join(Member member) {
+        // 중복회원 제거
+        memberRepository.findByName(member.getName())
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                });
         memberRepository.save(member);
         return member.getId();
     }
